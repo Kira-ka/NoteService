@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18331aa1-08ca-4425-8478-9cd0bf17805e" name="Changes" comment="add fun &quot;deleteNote&quot; and deleteCom">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/AccessToCommentDenied.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/NoteNotFoundException.kt" afterDir="false" />
+    <list default="true" id="18331aa1-08ca-4425-8478-9cd0bf17805e" name="Changes" comment="add fun &quot;editComment&quot; and &quot;getNotes&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
     </list>
@@ -76,7 +74,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664099941230</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add fun &quot;editComment&quot; and &quot;getNotes&quot;">
+      <created>1664267582372</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1664267582372</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -92,6 +97,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add fun &quot;deleteNote&quot; and deleteCom" />
-    <option name="LAST_COMMIT_MESSAGE" value="add fun &quot;deleteNote&quot; and deleteCom" />
+    <MESSAGE value="add fun &quot;editComment&quot; and &quot;getNotes&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="add fun &quot;editComment&quot; and &quot;getNotes&quot;" />
   </component>
 </project>

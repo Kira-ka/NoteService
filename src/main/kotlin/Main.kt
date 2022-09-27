@@ -17,7 +17,7 @@ data class Notes<A, B>(var first: A, var second: B?)
 
 
 object WallService {
-    val userNotes = mutableListOf<Notes<Note, Array<Comment>>>()
+    private var userNotes = mutableListOf<Notes<Note, Array<Comment>>>()
     private var counterNid: Int = 0
     private var counterCid: Int = 0
 
@@ -67,8 +67,7 @@ object WallService {
             val c = notes.second
             for ((index, existing) in c?.withIndex()!!) {
                 if (existing.cId == cId) {
-                    val cc = existing.copy(delet = true)
-                    c.set(index, cc)
+                    c[index] = existing.copy(delet = true)
                     return true
                 }
             }
@@ -109,7 +108,7 @@ object WallService {
         for (notes in userNotes) {
             val c = notes.second
             for ((index, existing) in c?.withIndex()!!) {
-                if (existing.cId == cId || existing.delet) {
+                if (existing.cId == cId && existing.delet) {
                     throw AccessToCommentDenied("Access to comment denied")
                 } else if (existing.cId == cId) {
                     check = true
@@ -123,14 +122,26 @@ object WallService {
 
     fun getNotes(): Array<Note> {
         var aNotes = emptyArray<Note>()
-            for (notes in userNotes) {
+        for (notes in userNotes) {
             val n = notes.first
-                aNotes += n
+            aNotes += n
         }
         return aNotes
     }
 
-
+    fun getById(vararg nId: Int): Array<Note> {
+        var aNotes = emptyArray<Note>()
+        for (notes in userNotes) {
+            for ((index, existing) in nId.withIndex()) {
+                if (notes.first.nId == existing){
+                    aNotes += notes.first
+                }else{
+                    throw NoteNotFoundException("Note not found")
+                }
+            }
+        }
+        return aNotes
+    }
 }
 
 fun main(args: Array<String>) {
