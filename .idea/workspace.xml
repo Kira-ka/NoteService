@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18331aa1-08ca-4425-8478-9cd0bf17805e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="18331aa1-08ca-4425-8478-9cd0bf17805e" name="Changes" comment="add fun &quot;deleteNote&quot; and deleteCom">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/AccessToCommentDenied.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/NoteNotFoundException.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
     </list>
@@ -19,6 +19,13 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -62,6 +69,14 @@
       <option name="presentableId" value="Default" />
       <updated>1664015548753</updated>
     </task>
+    <task id="LOCAL-00001" summary="add fun &quot;deleteNote&quot; and deleteCom">
+      <created>1664099941230</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1664099941230</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -74,5 +89,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add fun &quot;deleteNote&quot; and deleteCom" />
+    <option name="LAST_COMMIT_MESSAGE" value="add fun &quot;deleteNote&quot; and deleteCom" />
   </component>
 </project>
