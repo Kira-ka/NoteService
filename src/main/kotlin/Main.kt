@@ -11,7 +11,7 @@ data class Comment(
     val delet: Boolean = false
 )
 
-data class Notes<A, B>(var first: A, var second: B?)
+data class Notes<A, B>(var first: A, var second: B)
 
 
 object WallService {
@@ -19,10 +19,12 @@ object WallService {
     private var counterNid: Int = 0
     private var counterCid: Int = 0
 
+
     fun add(note: Note): Int {
         val postWithId = note.copy(nId = counterNid)
-        userNotes.add(Notes(postWithId, null))
+        userNotes.add(Notes(postWithId, emptyArray()))
         counterNid += 1
+
         return postWithId.nId
     }
 
@@ -32,42 +34,43 @@ object WallService {
         for (notes in userNotes) {
             if (notes.first.nId == nId) {
                 val commentWithId = comment.copy(cId = counterCid)
-                count = commentWithId.cId
+                count = 1
+                notes.second += commentWithId
                 counterCid += 1
-                notes.second = arrayOf(commentWithId)
+
             }
         }
-        if (count == 0){
-            throw NoteNotFoundException ("Note not found")
+        if (count == 0) {
+            throw NoteNotFoundException("Note not found")
         }
-        return count
+        return counterCid - 1
     }
 
     fun deleteNote(nId: Int): Boolean {
         var check = false
         for (notes in userNotes) {
-            if (notes.first.nId == nId) {
-                val n = notes.first
-                val nn = n.copy(delet = true)
+            if (notes.first.nId == nId && !notes.first.delet) {
+                val n = notes.first.copy(delet = true)
                 val c = notes.second
-                val cc = emptyArray<Comment>()
-                for ((_, existing) in c?.withIndex()!!)
-                    arrayOf(existing.copy(delet = true))
+                var cc = emptyArray<Comment>()
+                for ((_, existing) in c.withIndex()) {
+                    cc += existing.copy(delet = true)
+                }
                 check = true
                 userNotes.remove(notes)
-                return userNotes.add(Notes(nn, cc))
-            }
-            if (check == false) {
-                throw NoteNotFoundException("Note not found")
+                return userNotes.add(Notes(n, cc))
             }
         }
-        return false
+        if (check == false) {
+            throw NoteNotFoundException("Note not found")
+        }
+        return check
     }
 
     fun deleteCom(cId: Int): Boolean {
         for (notes in userNotes) {
-            val c = notes.second
-            for ((index, existing) in c?.withIndex()!!) {
+            var c = notes.second
+            for ((index, existing) in c.withIndex()) {
                 if (existing.cId == cId) {
                     c[index] = existing.copy(delet = true)
                     return true
@@ -80,17 +83,15 @@ object WallService {
     fun editNote(
         nId: Int,
         title: String,
-        text: String,
-
+        text: String
         ): Boolean {
         var check = false
         for (notes in userNotes) {
-            if (notes.first.nId == nId) {
+            if (notes.first.nId == nId && !notes.first.delet) {
                 val c = notes.second
                 val n = notes.first.copy(
                     title = title,
-                    text = text,
-
+                    text = text
                     )
                 check = true
                 userNotes.remove(notes)
@@ -107,7 +108,7 @@ object WallService {
         var check = false
         for (notes in userNotes) {
             val c = notes.second
-            for ((index, existing) in c?.withIndex()!!) {
+            for ((index, existing) in c.withIndex()) {
                 if (existing.cId == cId && existing.delet) {
                     throw AccessToCommentDenied("Access to comment denied")
                 } else if (existing.cId == cId) {
@@ -131,14 +132,17 @@ object WallService {
 
     fun getById(vararg nId: Int): Array<Note> {
         var aNotes = emptyArray<Note>()
+        var check = 0
         for (notes in userNotes) {
             for ((_, existing) in nId.withIndex()) {
                 if (notes.first.nId == existing && !notes.first.delet) {
                     aNotes += notes.first
-                } else if (notes.first.nId != existing) {
-                    throw NoteNotFoundException("Note not found")
+                    check +=1
                 }
             }
+        }
+        if (check == 0) {
+            throw NoteNotFoundException("Note not found")
         }
         return aNotes
     }
@@ -161,22 +165,27 @@ object WallService {
     }
 
     fun restoreComment(cId: Int): Boolean {
+        var check = 0
         for (notes in userNotes) {
             val c = notes.second
             for ((index, existing) in c?.withIndex()!!) {
                 if (existing.cId == cId && existing.delet) {
                     c[index] = existing.copy(delet = false)
+                    check +=1
                     return true
                 } else if (existing.cId == cId && !existing.delet) {
                     throw AccessToCommentDenied("Access to comment denied. Сomment not deleted")
                 }
             }
         }
+
         return false
     }
+
     fun clear() {
-        var counterNid: Int = 0
-        var counterCid: Int = 0
+        userNotes.clear()
+        counterNid = 0
+        counterCid = 0
     }
 }
 
@@ -185,7 +194,12 @@ fun main(args: Array<String>) {
     val note2 = Note(0, "Заголовок2", "Текст заметки2", false)
     val com1 = Comment(0, " Комментарий1", false)
     val com2 = Comment(0, " Комментарий2", false)
-
-
+    WallService.add(note1)
+    WallService.add(note2)
+    WallService.createComment(1, com1)
+    WallService.createComment(1, com2)
+    val ar = WallService.getNotes()
+    println(ar[0])
+    println(ar[1])
 
 }
